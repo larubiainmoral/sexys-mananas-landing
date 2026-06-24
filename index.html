@@ -239,59 +239,110 @@ body { font-family: 'Cormorant Garamond', serif; background: #fff8e8; color: #0a
 <body>
 
 <!-- BANNER DIOSAS -->
-<div id="diosas-banner" style="
-  background: #c0392b;
-  color: #fff8e8;
+<style>
+@keyframes diosas-stars {
+  0%,100% { opacity:1; transform: scale(1); }
+  50% { opacity:0.4; transform: scale(1.4); }
+}
+@keyframes diosas-glow {
+  0%,100% { box-shadow: 0 0 8px #ff00cc, 0 0 24px #ff00cc, 0 0 48px #cc00ff; }
+  50% { box-shadow: 0 0 16px #00ffcc, 0 0 40px #00ffcc, 0 0 80px #ff00cc; }
+}
+@keyframes diosas-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+#diosas-banner {
+  background: #0a0a0a;
+  color: #ff00cc;
   text-align: center;
   padding: 14px 24px;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 13px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   cursor: pointer;
   position: relative;
   z-index: 100;
   user-select: none;
-">
-  ✦ &nbsp; RECIBE UN MENSAJE DE LAS DIOSAS &nbsp; ✦
+  animation: diosas-glow 2.5s ease-in-out infinite;
+  background: linear-gradient(90deg, #0a0a0a 0%, #1a001a 50%, #0a0a0a 100%);
+}
+#diosas-banner .star {
+  display: inline-block;
+  animation: diosas-stars 1.8s ease-in-out infinite;
+  color: #ffee00;
+}
+#diosas-banner .star:nth-child(2) { animation-delay: 0.3s; color: #00ffcc; }
+#diosas-banner .star:nth-child(3) { animation-delay: 0.6s; color: #ff00cc; }
+#diosas-banner .star:nth-child(4) { animation-delay: 0.9s; color: #ffee00; }
+#diosas-banner .star:nth-child(5) { animation-delay: 1.2s; color: #00ffcc; }
+#diosas-banner .banner-text {
+  background: linear-gradient(90deg, #ff00cc, #ffee00, #00ffcc, #ff00cc);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: diosas-shimmer 3s linear infinite;
+  font-weight: 500;
+}
+</style>
+
+<div id="diosas-banner">
+  <span class="star">★</span>&nbsp;
+  <span class="star">✦</span>&nbsp;
+  <span class="banner-text">RECIBE UN MENSAJE DE LAS DIOSAS</span>
+  &nbsp;<span class="star">✦</span>&nbsp;
+  <span class="star">★</span>
 </div>
 
 <!-- MODAL CARTA -->
+<style>
+@keyframes carta-in {
+  from { opacity:0; transform: scale(0.88) translateY(20px); }
+  to   { opacity:1; transform: scale(1) translateY(0); }
+}
+</style>
 <div id="diosas-overlay" style="
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(10,10,10,0.72);
+  background: rgba(5,0,15,0.88);
   z-index: 999;
   align-items: center;
   justify-content: center;
   padding: 24px;
 ">
   <div style="
-    background: #fff8e8;
+    background: linear-gradient(135deg, #0d001a 0%, #1a0033 50%, #0d001a 100%);
     max-width: 520px;
     width: 100%;
     padding: 48px 40px 40px;
     position: relative;
-    border: 1px solid #c0392b;
+    border: 1px solid #ff00cc;
+    box-shadow: 0 0 30px #ff00cc88, 0 0 80px #cc00ff44, inset 0 0 30px rgba(255,0,204,0.05);
     text-align: center;
     font-family: 'Cormorant Garamond', serif;
+    animation: carta-in 0.35s cubic-bezier(.22,.68,0,1.2) both;
   ">
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.15em; color:#c0392b; margin-bottom:28px; text-transform:uppercase;">
-      Las Diosas te dicen
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.2em; color:#ffee00; margin-bottom:28px; text-transform:uppercase; text-shadow: 0 0 10px #ffee00;">
+      ✦ Las Diosas te dicen ✦
     </div>
-    <p id="diosas-msg" style="font-size:22px; line-height:1.6; font-style:italic; color:#0a0a0a; margin-bottom:36px;"></p>
+    <p id="diosas-msg" style="font-size:22px; line-height:1.7; font-style:italic; color:#fff8e8; margin-bottom:36px; text-shadow: 0 0 20px rgba(255,0,204,0.3);"></p>
     <button onclick="document.getElementById('diosas-overlay').style.display='none'" style="
       font-family:'IBM Plex Mono',monospace;
       font-size:11px;
       letter-spacing:0.15em;
       text-transform:uppercase;
-      background:transparent;
-      border:1px solid #0a0a0a;
-      color:#0a0a0a;
-      padding:12px 28px;
-      cursor:pointer;
-    ">Cerrar</button>
+      background: transparent;
+      border: 1px solid #00ffcc;
+      color: #00ffcc;
+      padding: 12px 28px;
+      cursor: pointer;
+      text-shadow: 0 0 8px #00ffcc;
+      box-shadow: 0 0 12px #00ffcc44;
+      transition: all 0.2s;
+    " onmouseover="this.style.background='#00ffcc22'" onmouseout="this.style.background='transparent'">Cerrar</button>
   </div>
 </div>
 
