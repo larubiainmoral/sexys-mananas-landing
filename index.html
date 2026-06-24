@@ -698,6 +698,51 @@ body { font-family: 'Cormorant Garamond', serif; background: #fff8e8; color: #0a
   <div class="footer-sub">los milagros existen · hay que portarse mal</div>
 </div>
 
+<!-- BOTÓN FLOTANTE WHATSAPP -->
+<a href="https://wa.me/message/DXQV2V3477P2F1" target="_blank" id="wa-float" style="
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #0a0a0a;
+  color: #fff8e8;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 13px 20px 13px 16px;
+  border-radius: 50px;
+  box-shadow: 0 0 12px #ff00cc88, 0 0 28px #cc00ff44;
+  border: 1px solid #ff00cc;
+  animation: wa-glow 2.5s ease-in-out infinite;
+  transition: transform 0.2s;
+" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+  <span style="font-size:22px; line-height:1;">🔥❤️</span>
+  <span style="
+    background: linear-gradient(90deg, #ff00cc, #ffee00, #00ffcc, #ff00cc);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: diosas-shimmer 3s linear infinite;
+    font-weight: 500;
+  ">¿Tienes alguna pregunta? Escríbenos</span>
+</a>
+<style>
+@keyframes wa-glow {
+  0%,100% { box-shadow: 0 0 10px #ff00cc88, 0 0 24px #cc00ff44; }
+  50%      { box-shadow: 0 0 20px #00ffcc88, 0 0 40px #ff00cc44; }
+}
+@media (max-width: 600px) {
+  #wa-float span:last-child { display: none; }
+  #wa-float { padding: 14px; }
+}
+</style>
+
 <script>
 (function(){
   var title = document.querySelector('.hero-title');
