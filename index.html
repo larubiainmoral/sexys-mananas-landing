@@ -238,6 +238,92 @@ body { font-family: 'Cormorant Garamond', serif; background: #fff8e8; color: #0a
 </head>
 <body>
 
+<!-- BANNER DIOSAS -->
+<div id="diosas-banner" style="
+  background: #c0392b;
+  color: #fff8e8;
+  text-align: center;
+  padding: 14px 24px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  z-index: 100;
+  user-select: none;
+">
+  ✦ &nbsp; RECIBE UN MENSAJE DE LAS DIOSAS &nbsp; ✦
+</div>
+
+<!-- MODAL CARTA -->
+<div id="diosas-overlay" style="
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,10,0.72);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+">
+  <div style="
+    background: #fff8e8;
+    max-width: 520px;
+    width: 100%;
+    padding: 48px 40px 40px;
+    position: relative;
+    border: 1px solid #c0392b;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+  ">
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.15em; color:#c0392b; margin-bottom:28px; text-transform:uppercase;">
+      Las Diosas te dicen
+    </div>
+    <p id="diosas-msg" style="font-size:22px; line-height:1.6; font-style:italic; color:#0a0a0a; margin-bottom:36px;"></p>
+    <button onclick="document.getElementById('diosas-overlay').style.display='none'" style="
+      font-family:'IBM Plex Mono',monospace;
+      font-size:11px;
+      letter-spacing:0.15em;
+      text-transform:uppercase;
+      background:transparent;
+      border:1px solid #0a0a0a;
+      color:#0a0a0a;
+      padding:12px 28px;
+      cursor:pointer;
+    ">Cerrar</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var mensajes = [
+    "Ya sé que todo te está pareciendo muy difícil en este momento, pero las cosas, los sueños, la vida no se rompen porque se acaban, se rompen porque se expanden.",
+    "Mi niña, que no sea el amor para toda tu vida puede ser una protección divina más que un mal presagio.",
+    "Permítete el error, no solo tienes que andar por la vida perdonando a otros, tú también estás aprendiendo y necesitas mirarte con compasión.",
+    "La vida no se acaba cuando algo que querías mucho no sale como esperabas, eso solo quiere decir que existen más posibilidades esperándote.",
+    "Hay una magia, hay mucha rebeldía y mucha libertad en que hoy sí puedas irte.",
+    "Que se rompan las versiones tuyas que se encogen, que se caigan los vínculos que te apagan, que se quemen las expectativas que no te pertenecen.",
+    "Por más malestar que estés sintiendo ahora mismo, recuerda que el caos también hace parte del plan.",
+    "Aléjate de creer que debes tener una vida perfecta para que sea milagrosa.",
+    "Elige el incendio, a veces de las cenizas sale lo que es real.",
+    "No pidas suavidad, no pidas calma, no pidas respuestas fáciles, pide verdad, aunque duela, aunque incomode, aunque lo cambie todo."
+  ];
+  var ultimo = -1;
+  document.getElementById('diosas-banner').addEventListener('click', function(){
+    var idx;
+    do { idx = Math.floor(Math.random() * mensajes.length); } while (idx === ultimo && mensajes.length > 1);
+    ultimo = idx;
+    document.getElementById('diosas-msg').textContent = mensajes[idx];
+    var overlay = document.getElementById('diosas-overlay');
+    overlay.style.display = 'flex';
+  });
+  document.getElementById('diosas-overlay').addEventListener('click', function(e){
+    if (e.target === this) this.style.display = 'none';
+  });
+})();
+</script>
+
 <!-- HERO — foto Provenza de fondo -->
 <div class="hero">
   <div class="hero-bg"></div>
