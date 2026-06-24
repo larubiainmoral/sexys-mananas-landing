@@ -439,6 +439,41 @@ body { font-family: 'Cormorant Garamond', serif; background: #fff8e8; color: #0a
 </script>
 
 <!-- HERO — foto Provenza de fondo -->
+<!-- SECCIÓN MONSTRUOS -->
+<div id="sec-monstruos" style="background:#fff8e8; padding:80px 32px; text-align:center;">
+  <div style="max-width:600px; margin:0 auto;">
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#c0392b; margin-bottom:20px;">✦ antes de empezar ✦</div>
+    <div style="font-family:'Playfair Display',serif; font-style:italic; font-weight:900; font-size:clamp(32px,6vw,58px); color:#0a0a0a; line-height:1.0; margin-bottom:24px;">Deja tus<br>monstruos aquí</div>
+    <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(17px,2vw,21px); font-style:italic; color:#0a0a0a; line-height:1.75; margin-bottom:36px; opacity:0.85;">Deja aquí todo lo que te está pesando mucho. Tranqui, nadie lo va a leer — es un secreto entre las dos. Solo suéltalo. Para que tu vida sea sexy, tienes que soltar.</p>
+    <textarea id="monstruos-input" placeholder="Escribe aquí lo que te está aplastando..." style="
+      width:100%; min-height:160px; padding:20px;
+      font-family:'Cormorant Garamond',serif; font-size:18px; font-style:italic;
+      background:#fff8e8; border:1px solid #0a0a0a;
+      color:#0a0a0a; resize:vertical; outline:none;
+      line-height:1.7;
+    "></textarea>
+    <div id="monstruos-confirmacion" style="display:none; font-family:'Playfair Display',serif; font-style:italic; font-size:20px; color:#c0392b; margin-top:24px; line-height:1.6;">
+      ✦ Tus monstruos ya no tienen poder sobre ti. ✦<br>
+      <span style="font-size:16px; color:#0a0a0a; opacity:0.7;">Ahora respira. Y sigue.</span>
+    </div>
+    <button id="monstruos-btn" onclick="
+      var t = document.getElementById('monstruos-input');
+      var c = document.getElementById('monstruos-confirmacion');
+      var b = document.getElementById('monstruos-btn');
+      if(t.value.trim()===''){return;}
+      t.style.transition='opacity 0.6s';
+      t.style.opacity='0';
+      setTimeout(function(){ t.style.display='none'; b.style.display='none'; c.style.display='block'; }, 600);
+    " style="
+      margin-top:20px;
+      font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.2em; text-transform:uppercase;
+      background:#0a0a0a; color:#fff8e8;
+      border:none; padding:16px 40px; cursor:pointer;
+      transition:background 0.2s;
+    " onmouseover="this.style.background='#c0392b'" onmouseout="this.style.background='#0a0a0a'">Soltar →</button>
+  </div>
+</div>
+
 <div class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
@@ -709,6 +744,42 @@ body { font-family: 'Cormorant Garamond', serif; background: #fff8e8; color: #0a
 </div>
 
 <!-- CIERRE -->
+<!-- SECCIÓN SALVAVIDAS -->
+<div id="sec-salvavidas" style="background:#0a0a0a; padding:80px 32px; text-align:center;">
+  <div style="max-width:600px; margin:0 auto;">
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#ffd60a; margin-bottom:20px;">✦ para la desconocida que lo necesita ✦</div>
+    <div style="font-family:'Playfair Display',serif; font-style:italic; font-weight:900; font-size:clamp(28px,5vw,50px); color:#fff8e8; line-height:1.05; margin-bottom:24px;">Deja una carta<br>salvavidas</div>
+    <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(17px,2vw,20px); font-style:italic; color:#fff8e8; line-height:1.75; margin-bottom:36px; opacity:0.85;">Sé milagro, sé magia y sé el mensaje que alguien necesitaba para que la vida no sea tan pesada. Aquí vinimos a sostenernos entre todas.</p>
+    <div id="salvavidas-form">
+      <textarea id="salvavidas-input" placeholder="Escribe tu mensaje para esa desconocida..." style="
+        width:100%; min-height:160px; padding:20px;
+        font-family:'Cormorant Garamond',serif; font-size:18px; font-style:italic;
+        background:#1a1a1a; border:1px solid #ffd60a44;
+        color:#fff8e8; resize:vertical; outline:none;
+        line-height:1.7;
+      " onfocus="this.style.borderColor='#ffd60a'" onblur="this.style.borderColor='#ffd60a44'"></textarea>
+      <button onclick="
+        var t = document.getElementById('salvavidas-input');
+        var f = document.getElementById('salvavidas-form');
+        var c = document.getElementById('salvavidas-confirmacion');
+        if(t.value.trim()===''){return;}
+        f.style.transition='opacity 0.6s'; f.style.opacity='0';
+        setTimeout(function(){ f.style.display='none'; c.style.display='block'; }, 600);
+      " style="
+        margin-top:20px;
+        font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.2em; text-transform:uppercase;
+        background:transparent; color:#ffd60a;
+        border:1px solid #ffd60a; padding:16px 40px; cursor:pointer;
+        transition:all 0.2s;
+      " onmouseover="this.style.background='#ffd60a';this.style.color='#0a0a0a'" onmouseout="this.style.background='transparent';this.style.color='#ffd60a'">Enviar mi carta ✦</button>
+    </div>
+    <div id="salvavidas-confirmacion" style="display:none; font-family:'Playfair Display',serif; font-style:italic; font-size:20px; color:#ffd60a; line-height:1.7;">
+      Tu mensaje ya está viajando.<br>
+      <span style="font-size:16px; color:#fff8e8; opacity:0.8;">Alguien lo va a necesitar exactamente hoy.</span>
+    </div>
+  </div>
+</div>
+
 <div class="closing">
   <div class="closing-title">Puedes confiar en mí<br>en este momento.</div>
   <p class="closing-text">Créeme que yo sé cómo atravesar la mierda con estilo.</p>
