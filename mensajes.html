@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un mensaje para ti · larubiainmoral</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700;1,900&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: 'Cormorant Garamond', serif;
+  background: #0a0a0a;
+  color: #fff8e8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  overflow-x: hidden;
+}
+
+.wordmark {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #c0392b;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.screen { width: 100%; max-width: 560px; }
+
+/* ── PANTALLA 0: acceso ── */
+#gate-screen h1 {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 900;
+  font-size: clamp(28px, 6vw, 42px);
+  line-height: 1.1;
+  text-align: center;
+  margin-bottom: 14px;
+}
+#gate-screen p.sub {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(15px, 2.4vw, 18px);
+  text-align: center;
+  color: #fff8e8;
+  opacity: 0.65;
+  margin-bottom: 36px;
+}
+#gate-input {
+  display: block;
+  width: 100%;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-align: center;
+  background: transparent;
+  border: 1px solid rgba(255,248,232,0.35);
+  color: #fff8e8;
+  padding: 18px;
+  outline: none;
+}
+#gate-input:focus { border-color: #c0392b; }
+#gate-error {
+  display: none;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-align: center;
+  color: #e8112d;
+  margin-top: 16px;
+}
+#gate-screen .btn-primary { width: 100%; margin-top: 18px; }
+
+/* ── PANTALLA 1: elegir ánimo ── */
+#pick-screen h1 {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 900;
+  font-size: clamp(32px, 7vw, 52px);
+  line-height: 1.05;
+  text-align: center;
+  margin-bottom: 14px;
+}
+#pick-screen p.sub {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(15px, 2.4vw, 18px);
+  text-align: center;
+  color: #fff8e8;
+  opacity: 0.65;
+  margin-bottom: 40px;
+}
+
+.moods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.mood-btn {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 19px;
+  color: #fff8e8;
+  background: transparent;
+  border: 1px solid rgba(255,248,232,0.35);
+  padding: 20px 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  text-align: center;
+  line-height: 1.3;
+}
+.mood-btn:hover, .mood-btn:active {
+  border-color: #c0392b;
+  background: rgba(192,57,43,0.08);
+}
+
+/* ── PANTALLA 2: mensaje ── */
+#message-screen { display: none; text-align: center; }
+#message-screen .tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #c0392b;
+  margin-bottom: 28px;
+}
+#message-card {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(21px, 4.2vw, 30px);
+  line-height: 1.55;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.35s ease;
+}
+#message-card .signature {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #ffd60a;
+  margin-top: 26px;
+}
+
+.actions {
+  margin-top: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+.btn-primary, .btn-secondary {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: none;
+  padding: 16px 40px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-primary {
+  background: #fff8e8;
+  color: #0a0a0a;
+}
+.btn-primary:hover { background: #ffd60a; }
+.btn-secondary {
+  background: transparent;
+  color: #fff8e8;
+  opacity: 0.55;
+  border: 1px solid rgba(255,248,232,0.35);
+}
+.btn-secondary:hover { opacity: 1; border-color: #fff8e8; }
+
+@media (max-width: 420px) {
+  .moods { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="wordmark">larubiainmoral</div>
+
+<div class="screen" id="gate-screen">
+  <h1>Un espacio<br>solo para ti</h1>
+  <p class="sub">Esto es exclusivo para quienes<br>hacen parte de Las Sexys Mañanas.</p>
+  <input type="text" id="gate-input" placeholder="Contraseña" autocapitalize="characters" autocomplete="off">
+  <div id="gate-error">Esa no es. Intenta de nuevo.</div>
+  <button class="btn-primary" id="gate-btn">Entrar →</button>
+</div>
+
+<div class="screen" id="pick-screen" style="display:none;">
+  <h1>¿Qué estás<br>sintiendo hoy?</h1>
+  <p class="sub">Pídele una señal a las diosas.<br>Recuerda que no estás sola en este camino.</p>
+  <div class="moods" id="moods-grid"></div>
+</div>
+
+<div class="screen" id="message-screen">
+  <div class="tag" id="message-tag">para ti</div>
+  <div id="message-card"></div>
+  <div class="actions">
+    <button class="btn-primary" id="otro-btn">Otro mensaje →</button>
+    <button class="btn-secondary" id="volver-btn">Elegir otro ánimo</button>
+  </div>
+</div>
+
+<script>
+var MOODS = [
+  { key: "triste", label: "Siento tristeza", tag: "para tu tristeza", msgs: [
+    "No tienes que sonreír hoy si no te nace. Está bien estar triste sin explicarlo.",
+    "Llora si lo necesitas. No te hace débil, te hace alguien que siente de verdad.",
+    "Esta tristeza no te va a durar para siempre, aunque hoy se sienta eterna.",
+    "No hay nada malo en ti por sentir esto. Solo estás atravesando algo difícil, eso es todo.",
+    "Sé gentil contigo hoy, como serías con tu mejor amiga si le pasara lo mismo.",
+    "No necesitas arreglar la tristeza ahora mismo. Solo necesitas dejar que exista un rato.",
+    "Ya sobreviviste a otros días tristes. Este también lo vas a atravesar.",
+    "Te mando algo de luz para hoy, aunque sea poquita. Suficiente para seguir.",
+    "No busques salidas rápidas. Todo lo que necesitas saber para la próxima está en lo que estás sintiendo ahora.",
+    "El duelo no es debilidad. Es la prueba de que amaste con una capacidad enorme y que lo entregaste todo.",
+    "No vuelvas al lugar donde te apagaste, aunque hoy extrañes la luz que creías tener ahí.",
+    "Casi todas las historias de amor terminan en posición fetal llorando. Y aun así, valieron la pena.",
+    "La tristeza y la rabia no son el fin del mundo, ni van a ser eternas. Vas a volver a brillar.",
+    "El amor también se encuentra en la pausa, en las lágrimas, en los finales. A veces es la puerta que cierras, no la que se abre."
+  ]},
+  { key: "miedo", label: "Tengo mucho miedo", tag: "para tu miedo", msgs: [
+    "El miedo no significa que estés haciendo algo mal. A veces significa que estás creciendo.",
+    "No tienes nada de qué avergonzarte. Lo que sientes o lo que haces con tu vida es tuyo, y es válido.",
+    "El miedo suele mentir sobre el tamaño de las cosas. La mayoría no es tan grande como se siente hoy.",
+    "Puedes tener miedo y seguir caminando de todos modos. Eso es justo lo que es el valor.",
+    "Nadie que te quiera de verdad te va a juzgar por ser humana.",
+    "No estás sola en esto que sientes, aunque parezca un secreto solo tuyo.",
+    "Suelta el miedo como sueltas los monstruos aquí: no tiene poder sobre ti si dejas de esconderlo.",
+    "Ese miedo que sientes hoy no te define. Solo es una nube pasajera, no el cielo entero.",
+    "La vergüenza es una emoción natural. No se te cierran todas las puertas del mundo por sentirla.",
+    "Cuando sientas que el mundo se te viene abajo, piensa que te puedes estar salvando de algo. Siempre es redirección, nunca pérdida.",
+    "La intuición siempre avisa primero. Escúchala.",
+    "La venganza no te va a servir de nada. Mejor atraviesa lo que te está pasando, ábrete a una historia más amorosa.",
+    "No hagas nada. No puedes obligar a nadie a que te elija o te quiera. Solo puedes encargarte de ti, de tus sueños y de tu proceso."
+  ]},
+  { key: "sola", label: "Me siento sola", tag: "para tu soledad", msgs: [
+    "No estás tan sola como sientes. Alguien, en algún lugar, está pensando en ti ahora mismo — puede que sea yo.",
+    "La soledad no significa que no valgas para nadie. Significa que necesitas que te busquen mejor, no menos.",
+    "Estar sola un rato no te hace invisible. Sigues siendo exactamente igual de sexy y de suficiente.",
+    "Escríbeme, manda un mensaje, sal de tu cuarto un momento. La soledad se rompe con un solo gesto pequeño.",
+    "Hay algo hermoso en estar contigo misma, aunque hoy no lo sienta así. Practica quedarte sin salir corriendo.",
+    "No naciste para que te acompañaran siempre. Naciste para acompañarte a ti primero, y eso ya lo estás haciendo.",
+    "Esto no es para siempre. Es solo un rato incómodo en un día largo.",
+    "Estás leyendo esto porque me importa que no te sientas sola hoy. Ya no lo estás tanto.",
+    "Descentraliza a los hombres de tu vida. Vuelve a conectar con la curiosidad, con tus amigas, con tus sueños — que un hombre no te elija no es el fin del mundo.",
+    "Si no te elige, igual el sol sale mañana. Igual te quedan todos los planes de la vida que sueñas.",
+    "Puedes ver la soledad que sientes ahora como un castigo, o como terreno fértil para construir cosas nuevas y priorizarte.",
+    "No eres la media naranja de nadie. Ya eres todo, ya tienes todo lo que necesitas para hacer de esta vida algo extraordinario.",
+    "Tu vida es más que esperar a un hombre. Tienes amigas, hobbies, libros, trabajo, sueños — tienes de sobra.",
+    "Que no te elija, total, el mundo sigue girando."
+  ]},
+  { key: "amoroso", label: "Quiero un mensaje amoroso", tag: "un mensaje con amor", msgs: [
+    "Mi niña, hoy no necesitas que nadie más te ame para sentirte completa. El amor ya vive en ti, solo lo estabas buscando afuera.",
+    "Eres digna de amor no por lo que das, no por lo que produces, no por lo que aguantas. Eres digna de amor simplemente porque existes.",
+    "Te mando un abrazo que no puedes ver pero que es real. Hoy alguien te está queriendo bien, aunque sea de lejos.",
+    "No tienes que ganarte el cariño con perfección. Ya eres suficiente, con tus días buenos y tus días difíciles.",
+    "Que hoy te trates con la misma ternura con la que tratarías a alguien que amas profundamente.",
+    "Eres una diosa que también necesita que la cuiden. Hoy, cuídate tú primero.",
+    "El amor que buscas afuera empieza por el que te des tú misma hoy, en este momento exacto.",
+    "Te quiero bien, diosa. Y aunque no lo sientas siempre, no estás caminando sola.",
+    "No puedes perder mientras tengas vida y ganas de amar. El fin del mundo no llega cuando amas con todo y no sale como esperabas.",
+    "Valió la pena querer, valió la pena soñar. Siempre valdrá la pena dejar el corazón abierto.",
+    "El amor es el discurso más grande contra la perfección. Es fe. Y tu existencia entera ya es la muestra más grande de amor.",
+    "No eres suficiente y no pasa nada. No eres la más linda ni la más inteligente y no pasa nada. Aun así mereces el amor y la abundancia del universo entero.",
+    "El amor es caótico e imperfecto. Solo recuerda: te puedes ir siempre que quieras, y siempre mereces uno que se sienta más amable.",
+    "No necesitas rutinas que te estresen. Necesitas rituales que te liberen: mañanas lentas, música que te divierta, mensajes de esperanza.",
+    "Eres un homenaje a todas las mujeres de tu linaje que no pudieron elegir diferente. Tú sí puedes amar intensamente, a tu manera."
+  ]},
+  { key: "capaz", label: "No creo que vaya a ser capaz", tag: "para cuando dudas de ti", msgs: [
+    "No necesitas sentirte capaz para serlo. Ya lo eres, aunque el miedo te esté susurrando lo contrario.",
+    "Has sobrevivido a cada uno de tus peores días. Ese historial ya dice quién eres.",
+    "No tienes que verlo todo el camino. Solo el siguiente paso, y ese sí puedes darlo.",
+    "La duda no es una señal de que no puedes. Es una señal de que te importa hacerlo bien.",
+    "Eres más fuerte de lo que esta noche te deja ver. Mañana lo vas a recordar.",
+    "No confíes en la voz que te dice que no vas a poder. Esa voz nunca ha tenido razón antes.",
+    "Puedes tener miedo y ser capaz al mismo tiempo. Una cosa no cancela la otra.",
+    "Diosa, ya has hecho cosas difíciles antes sin darte cuenta de lo fuerte que eras. Esta también la vas a lograr.",
+    "Te enseñaron a hacerte pequeña, a hablar pasito, porque brillas tan duro que a veces asusta a los demás. No les hagas caso: mereces incendiarlo todo.",
+    "Tienes voz para gritar tan fuerte como lo necesites, y la fuerza para irte de donde te sientas incómoda, todas las veces que haga falta.",
+    "Honra tu rabia. No seas dócil ni callada. Tienes una fuerza incalculable para enfrentar este mundo.",
+    "Toda la gente que más admiras ha tenido que volver a empezar muchas veces.",
+    "No tienes que quedarte atrapada en algo solo porque alguna vez lo elegiste. Siempre puedes cambiar de opinión.",
+    "El día que dejes de esperar que vuelva, que cambie, que sea diferente, es el día que vas a tener la fuerza para brillar hasta quemarlo todo.",
+    "Juégatela toda por tus sueños, una y otra vez, así te toque cambiar de ruta o volver a empezar."
+  ]}
+];
+
+var lastIndex = {};
+
+function render(mood) {
+  var pool = mood.msgs;
+  var idx;
+  do { idx = Math.floor(Math.random() * pool.length); }
+  while (pool.length > 1 && idx === lastIndex[mood.key]);
+  lastIndex[mood.key] = idx;
+
+  document.getElementById('message-tag').textContent = mood.tag;
+  var card = document.getElementById('message-card');
+  card.style.opacity = '0';
+  setTimeout(function () {
+    card.innerHTML = pool[idx] + '<span class="signature">— larubiainmoral</span>';
+    card.style.opacity = '1';
+  }, 200);
+}
+
+var PASSWORD = "LAMAGIAEXISTE";
+var STORAGE_KEY = "lsm-mensajes-acceso";
+
+function unlock() {
+  document.getElementById('gate-screen').style.display = 'none';
+  document.getElementById('pick-screen').style.display = 'block';
+}
+
+if (localStorage.getItem(STORAGE_KEY) === "ok") {
+  unlock();
+} else {
+  var gateInput = document.getElementById('gate-input');
+  var gateError = document.getElementById('gate-error');
+
+  function tryUnlock() {
+    var value = gateInput.value.trim().toUpperCase();
+    if (value === PASSWORD) {
+      localStorage.setItem(STORAGE_KEY, "ok");
+      gateError.style.display = 'none';
+      unlock();
+    } else {
+      gateError.style.display = 'block';
+    }
+  }
+
+  document.getElementById('gate-btn').onclick = tryUnlock;
+  gateInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') tryUnlock();
+  });
+}
+
+var currentMood = null;
+
+var grid = document.getElementById('moods-grid');
+MOODS.forEach(function (mood) {
+  var btn = document.createElement('button');
+  btn.className = 'mood-btn';
+  btn.textContent = mood.label;
+  btn.onclick = function () {
+    currentMood = mood;
+    document.getElementById('pick-screen').style.display = 'none';
+    document.getElementById('message-screen').style.display = 'block';
+    render(mood);
+  };
+  grid.appendChild(btn);
+});
+
+document.getElementById('otro-btn').onclick = function () {
+  if (currentMood) render(currentMood);
+};
+
+document.getElementById('volver-btn').onclick = function () {
+  document.getElementById('message-screen').style.display = 'none';
+  document.getElementById('pick-screen').style.display = 'block';
+};
+</script>
+</body>
+</html>
