@@ -193,6 +193,8 @@ em { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 70
 .passport-page.top { display: flex; align-items: stretch; gap: 12px; height: 250px; }
 .passport-word.vertical {
   flex: 0 0 34px;
+  min-width: 0;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -318,30 +320,18 @@ em { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 70
 .cred-bar {
   margin-top: 52px;
   background: var(--chartreuse);
-  padding: 16px 24px;
+  padding: 22px 24px;
   overflow: hidden;
-}
-.cred-bar .track {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px 28px;
   justify-content: center;
-  max-width: 900px;
-  margin: 0 auto;
-  font-family: 'Special Elite', monospace;
-  font-size: 12.5px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink);
-  text-align: center;
 }
 .cred-bar .cred-cta {
   display: block;
   width: fit-content;
-  margin: 16px auto 0;
   text-decoration: none;
   font-size: 14px;
   padding: 13px 28px;
+  text-align: center;
 }
 
 /* ─── SECTIONS ─── */
@@ -394,12 +384,24 @@ h2 {
 }
 @media (max-width: 480px) { .stats-grid { grid-template-columns: 1fr 1fr; } }
 
+/* en celular, las fotos con texto superpuesto se cambian por tarjetas simples y legibles */
+.desktop-only { display: block !important; }
+.mobile-only { display: none !important; }
+@media (max-width: 480px) {
+  .desktop-only { display: none !important; }
+  .mobile-only { display: grid !important; }
+}
+
 /* meme photo con cifras */
 .meme-wrap {
   position: relative;
   max-width: 380px;
   margin: 40px auto 0;
   aspect-ratio: 3672 / 4896;
+}
+.meme-wrap .photo-inner {
+  position: absolute;
+  inset: 0;
   background: var(--silver-light);
   overflow: hidden;
   border-radius: 4px;
@@ -463,40 +465,57 @@ h2 {
 .note .emo { font-size: 25px; display: block; margin-bottom: 10px; }
 @media (max-width: 560px) { .note-grid { grid-template-columns: 1fr; } }
 
-/* mapa del clima */
-.weather-wrap {
+/* nevera con stickers */
+.fridge-panel {
+  background: var(--chartreuse);
+  border-radius: 28px;
+  padding: 56px 60px;
+  margin-top: 40px;
   position: relative;
-  max-width: 420px;
-  margin: 40px auto 0;
-  aspect-ratio: 1332 / 1781;
-  background: var(--silver-light);
-  overflow: hidden;
 }
-.weather-wrap img { width: 100%; height: 100%; display: block; object-fit: cover; }
-.weather-label {
+.fridge-panel::before,
+.fridge-panel::after {
+  content: "✦";
   position: absolute;
-  color: #fff;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 800;
-  text-align: center;
-  line-height: 1.25;
+  color: rgba(32,26,23,0.15);
+  font-size: 48px;
+}
+.fridge-panel::before { top: 24px; left: 24px; }
+.fridge-panel::after { bottom: 24px; right: 24px; }
+.fridge-wrap {
+  position: relative;
+  width: 260px;
+  aspect-ratio: 383 / 1000;
+  margin: 0 auto;
+}
+.fridge-wrap .photo-inner {
+  position: absolute;
+  inset: 0;
+  background: var(--silver-light);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(32,26,23,0.28);
+}
+.fridge-wrap img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.sticker {
+  position: absolute;
   z-index: 2;
-  text-shadow:
-    -1.5px -1.5px 0 var(--ink), 1.5px -1.5px 0 var(--ink),
-    -1.5px 1.5px 0 var(--ink), 1.5px 1.5px 0 var(--ink),
-    0 0 10px rgba(0,0,0,0.5);
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.3;
+  border-radius: 14px;
+  padding: 10px 14px;
+  box-shadow: 0 6px 14px rgba(32,26,23,0.28);
 }
-.weather-label .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 0 2px rgba(0,0,0,0.55), 0 0 8px rgba(255,255,255,0.85);
-  margin: 5px auto 0;
-}
-.weather-label.final {
-  font-size: clamp(17px, 3.4vw, 21px);
+.sticker.pink { background: var(--pink); color: var(--cream); }
+.sticker.ink { background: var(--ink); color: var(--chartreuse); }
+.sticker.final {
+  font-family: 'Playfair Display', serif;
   font-style: italic;
+  font-weight: 900;
 }
 
 /* incluye */
@@ -559,6 +578,75 @@ h2 {
   margin-bottom: 8px;
 }
 .faq-item p { font-size: 16px; line-height: 1.6; opacity: 0.8; }
+
+/* bonus */
+.bonus-card { margin-top: 40px; text-align: center; }
+.bonus-card .bonus-emo { font-size: 40px; display: block; margin-bottom: 16px; }
+.bonus-card p { font-size: 17px; line-height: 1.7; }
+.bonus-card .actions { margin-top: 26px; }
+
+/* invitados */
+.guest-photo-grid {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px 20px;
+}
+.guest-photo-card { text-align: center; }
+.guest-photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 12px;
+  background: var(--silver-light);
+  border: 3px solid var(--card);
+  box-shadow: 0 6px 16px rgba(32,26,23,0.18);
+}
+.guest-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+}
+.guest-photo-card .name {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.3;
+}
+.guest-photo-card .role {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+@media (max-width: 600px) { .guest-photo-grid { grid-template-columns: 1fr 1fr; } }
+
+/* currículum */
+.week-list { margin-top: 40px; display: flex; flex-direction: column; gap: 14px; }
+.week-card { padding: 22px 22px; }
+.week-card .week-tag {
+  font-family: 'Special Elite', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 6px;
+}
+.week-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 19px;
+  margin-bottom: 6px;
+}
+.week-card p { font-size: 15px; opacity: 0.72; line-height: 1.5; }
+
 
 /* cta final */
 .cta-final { text-align: center; }
@@ -643,31 +731,33 @@ footer a { text-decoration: underline; }
 </div>
 
 <div class="cred-bar">
-  <div class="track">
-    <span>342K EN INSTAGRAM</span><span>✦</span>
-    <span>262K EN TIKTOK</span><span>✦</span>
-    <span>7.4K EN YOUTUBE</span><span>✦</span>
-    <span>+15K CLIENTAS</span><span>✦</span>
-    <span>+1K ALUMNAS</span><span>✦</span>
-    <span>SOLD OUT 1.000 PERSONAS</span>
-  </div>
-  <a class="pill pill-pale cred-cta" href="#inscribirme">Regístrate aquí como una zorrita prematura y recibe un regalo</a>
+  <a class="pill pill-pale cred-cta" href="https://forms.gle/NSpFpw6ANR3a6bYB7" target="_blank" rel="noopener">Regístrate aquí como una zorrita prematura y recibe un regalo</a>
 </div>
 
 <div class="wrap">
 
   <section id="autoridad">
     <h2>¿Hasta dónde te lleva<br>perderle miedo a hacer <em>el ridículo</em>?</h2>
-    <div class="meme-wrap">
-      <img src="assets/IMG_1183.jpg" alt="LARUBIAINMORAL">
-      <span class="meme-label" style="top:16%; left:-6%;">+342K EN INSTAGRAM</span>
-      <span class="meme-label" style="top:14%; right:-8%;">+262K EN TIKTOK</span>
-      <span class="meme-label" style="top:34%; right:-10%;">+7.4K EN YOUTUBE</span>
-      <span class="meme-label" style="top:46%; left:-10%;">3 EDICIONES DE MI LIBRO</span>
-      <span class="meme-label" style="top:62%; right:-8%;">+15K CLIENTAS</span>
-      <span class="meme-label" style="top:70%; left:-6%;">+1K ALUMNAS EN CURSOS</span>
+    <div class="meme-wrap desktop-only">
+      <div class="photo-inner"><img src="assets/IMG_1183.jpg" alt="LARUBIAINMORAL"></div>
+      <span class="meme-label" style="top:16%; left:-4%;">+342K EN INSTAGRAM</span>
+      <span class="meme-label" style="top:14%; right:-4%;">+262K EN TIKTOK</span>
+      <span class="meme-label" style="top:34%; right:-3%;">+7.4K EN YOUTUBE</span>
+      <span class="meme-label" style="top:46%; left:-3%;">3 EDICIONES DE MI LIBRO</span>
+      <span class="meme-label" style="top:62%; right:-4%;">+15K CLIENTAS</span>
+      <span class="meme-label" style="top:70%; left:-4%;">+1K ALUMNAS EN CURSOS</span>
       <span class="meme-label" style="bottom:2%; right:2%;">40 MIN: COLAB AGOTADA</span>
       <span class="meme-label" style="bottom:-4%; left:22%;">SOLD OUT: 1.000 PERSONAS</span>
+    </div>
+    <div class="mobile-only stats-grid" style="margin-top:32px;">
+      <div class="card stat"><div class="num">+342K</div><div class="label">en Instagram</div></div>
+      <div class="card stat"><div class="num">+262K</div><div class="label">en TikTok</div></div>
+      <div class="card stat"><div class="num">+7.4K</div><div class="label">en YouTube</div></div>
+      <div class="card stat"><div class="num">3</div><div class="label">ediciones de mi libro</div></div>
+      <div class="card stat"><div class="num">+15K</div><div class="label">clientas</div></div>
+      <div class="card stat"><div class="num">+1K</div><div class="label">alumnas en cursos</div></div>
+      <div class="card stat"><div class="num">40 min</div><div class="label">colab agotada</div></div>
+      <div class="card stat"><div class="num">1.000</div><div class="label">sold out en monólogo</div></div>
     </div>
     <p class="stats-para">Las redes sociales no solo me han permitido trabajar con marcas, también me han permitido construir mi emprendimiento y darle empleo a mujeres y a personas cabeza de hogar desde sus casas, hacer colaboraciones gigantes, escribir libros, llenar teatros, conectar con otras personas y cuidar mi salud mental.</p>
     <p class="stats-para">No existe una fórmula mágica universal, pero sí existe tu propia historia, tu autenticidad, tus pasiones, tus habilidades... que descubriremos en este programa. Toda mi presencia digital la he construido sin trends, sin viralización barata, sin copiar a nadie, sin perder mis posturas, sin una imagen rígida, sin tener que parecer hermosa o aspiracional todo el tiempo.</p>
@@ -678,15 +768,26 @@ footer a { text-decoration: underline; }
     <div class="eyebrow-wrap"><span class="pill pill-pale">Este programa es para ti si...</span></div>
     <h2>¿Te suena<br>alguna de estas?</h2>
     <p class="lead" style="margin-bottom:36px;">"La idea no es que te inviten al evento de la cartera de lujo, es que te puedas <span class="marker-inline">comprar la cartera de lujo</span>."</p>
-    <div class="weather-wrap">
-      <img src="assets/IMG_1515.jpg" alt="LARUBIAINMORAL">
-      <span class="weather-label" style="top:2%; left:2%; max-width:38%; font-size:18px;">Quieres monetizar redes.<span class="dot"></span></span>
-      <span class="weather-label" style="top:3%; right:2%; max-width:42%; font-size:12.5px;">Estás cansada de fórmulas, tendencias y rutas cortas que no dicen nada de quién eres.<span class="dot"></span></span>
-      <span class="weather-label" style="top:24%; right:0%; max-width:36%; font-size:13px;">Tu aspiración no es que te lleven a la cena de Chanel — es poder comprarte tú misma la cartera.<span class="dot"></span></span>
-      <span class="weather-label" style="top:36%; left:0%; max-width:40%; font-size:11.5px;">Sientes que eres la copia de la copia de la copia, y ya no sabes cuál era tu voz antes de empezar a imitar la de otras.<span class="dot"></span></span>
-      <span class="weather-label" style="top:48%; right:2%; max-width:40%; font-size:12px;">Te da miedo mostrarte, no gustarle a la gente, hacer el ridículo o embarrarla — y eso te está costando tu contenido.<span class="dot"></span></span>
-      <span class="weather-label" style="top:62%; left:2%; max-width:34%; font-size:13px;">Sientes que tu salud mental se va por un tobogán cada vez que publicas.<span class="dot"></span></span>
-      <span class="weather-label final" style="bottom:2%; left:50%; transform:translateX(-50%); max-width:78%;">No tienes idea de qué contenido crear.<br>Necesitas magia.<span class="dot"></span></span>
+    <div class="fridge-panel desktop-only">
+      <div class="fridge-wrap">
+        <div class="photo-inner"><img src="assets/nevera.jpg" alt="Nevera SMEG"></div>
+        <span class="sticker" style="top:0px; left:-55px; width:125px; font-size:12.5px; transform:rotate(-7deg);">Quieres monetizar redes.</span>
+        <span class="sticker ink" style="top:60px; right:-58px; width:135px; font-size:10.5px; transform:rotate(5deg);">Estás cansada de fórmulas, tendencias y rutas cortas que no dicen nada de quién eres.</span>
+        <span class="sticker pink" style="top:170px; left:-58px; width:130px; font-size:11.5px; transform:rotate(-4deg);">Tu aspiración no es que te lleven a la cena de Chanel — es poder comprarte tú misma la cartera.</span>
+        <span class="sticker" style="top:260px; right:-60px; width:135px; font-size:10px; transform:rotate(6deg);">Sientes que eres la copia de la copia de la copia, y ya no sabes cuál era tu voz antes de empezar a imitar la de otras.</span>
+        <span class="sticker ink" style="top:370px; left:-56px; width:130px; font-size:10.5px; transform:rotate(-5deg);">Te da miedo mostrarte, no gustarle a la gente, hacer el ridículo o embarrarla — y eso te está costando tu contenido.</span>
+        <span class="sticker pink" style="top:470px; right:-52px; width:125px; font-size:11.5px; transform:rotate(4deg);">Sientes que tu salud mental se va por un tobogán cada vez que publicas.</span>
+        <span class="sticker final" style="bottom:-40px; left:50%; transform:translateX(-50%) rotate(-2deg); width:210px; font-size:17px;">No tienes idea de qué contenido crear. Necesitas magia.</span>
+      </div>
+    </div>
+    <div class="mobile-only note-grid" style="margin-top:32px;">
+      <div class="card note"><span class="emo">💸</span>Quieres monetizar redes.</div>
+      <div class="card note"><span class="emo">🚫</span>Estás cansada de fórmulas, tendencias y rutas cortas que no dicen nada de quién eres.</div>
+      <div class="card note"><span class="emo">👛</span>Tu aspiración no es que te lleven a la cena de Chanel — es poder comprarte tú misma la cartera.</div>
+      <div class="card note"><span class="emo">🪞</span>Sientes que eres la copia de la copia de la copia, y ya no sabes cuál era tu voz antes de empezar a imitar la de otras.</div>
+      <div class="card note"><span class="emo">🧠</span>Te da miedo mostrarte, no gustarle a la gente, hacer el ridículo o embarrarla — y eso te está costando tu contenido.</div>
+      <div class="card note"><span class="emo">📉</span>Sientes que tu salud mental se va por un tobogán cada vez que publicas.</div>
+      <div class="card note"><span class="emo">🪄</span>No tienes idea de qué contenido crear. Necesitas magia.</div>
     </div>
   </section>
 
@@ -707,21 +808,70 @@ footer a { text-decoration: underline; }
     </div>
   </section>
 
-  <section id="perfiles">
-    <div class="eyebrow-wrap"><span class="pill pill-pale">Prueba social por categoría</span></div>
-    <h2>Perfiles que ya<br>pasaron por aquí</h2>
-    <div class="card todo-box">
-      <span class="tape tape-olive">Próximamente</span>
-      <p>Aquí va la lista de industrias y perfiles de tus alumnas anteriores (creadoras de contenido, emprendedoras de moda, coaches, terapeutas, artistas, marcas personales, negocios físicos...). Cuéntame cuáles han pasado por tus cursos o mentorías y armamos la lista.</p>
+  <section id="bonus">
+    <div class="eyebrow-wrap"><span class="pill pill-pale">Bonus</span></div>
+    <h2>Café con<br><em>La Rubia Inmoral</em></h2>
+    <div class="card bonus-card">
+      <span class="bonus-emo">☕</span>
+      <p>Las <strong>primeras 100 personas</strong> en inscribirse entran al sorteo de <strong>10 cupos</strong> para un café virtual conmigo, donde me puedes preguntar TODO lo que quieras de emprendimiento, sin filtro.</p>
+      <div class="actions">
+        <a class="btn btn-pink" href="#inscribirme">Quiero mi cupo →</a>
+      </div>
     </div>
   </section>
 
-  <section id="transformaciones">
-    <div class="eyebrow-wrap"><span class="pill pill-pale">Transformaciones</span></div>
-    <h2>Antes y<br>después</h2>
-    <div class="card todo-box">
-      <span class="tape tape-olive">Próximamente</span>
-      <p>Aquí va la galería visual de testimonios: capturas de resultados o mensajes reales de tus alumnas. ¿Tienes testimonios guardados que podamos usar aquí?</p>
+  <section id="invitados">
+    <div class="eyebrow-wrap"><span class="pill pill-pale">Invitados especiales</span></div>
+    <h2>Inspirémonos de<br>gente muy crack</h2>
+    <p class="lead">¿Quiénes serán nuestros invitados? Tengamos conversaciones reales de emprendimiento, influencer marketing, marcas, éxito, propósito y de cómo crear empresas en este país.</p>
+    <div class="guest-photo-grid">
+      <div class="guest-photo-card"><div class="guest-photo"><img src="assets/IMG_1518.jpg" alt="Javier"></div><div class="name">Javier</div><div class="role">CCO Ivory Atelier</div></div>
+      <div class="guest-photo-card"><div class="guest-photo"><img src="assets/IMG_1519.jpg" alt="Sergio"></div><div class="name">Sergio</div><div class="role">Abogado</div></div>
+      <div class="guest-photo-card"><div class="guest-photo"><img src="assets/IMG_1520.jpg" alt="Juan José"></div><div class="name">Juan José</div><div class="role">Marketing, influencer marketing</div></div>
+      <div class="guest-photo-card"><div class="guest-photo"><img src="assets/IMG_1521.jpg" alt="Kelin"></div><div class="name">Kelin</div><div class="role">Desarrolladora de producto</div></div>
+      <div class="guest-photo-card"><div class="guest-photo"><img src="assets/IMG_1522.jpg" alt="Lorenzo"></div><div class="name">Lorenzo</div><div class="role">CCO Mario Hernández</div></div>
+      <div class="guest-photo-card"><div class="guest-photo"><img src="assets/IMG_1524.jpg" alt="Ammiel"></div><div class="name">Ammiel</div><div class="role">Coach de emprendimiento</div></div>
+      <div class="guest-photo-card"><div class="guest-photo"><img src="assets/IMG_1526.jpg" alt="Nicolás"></div><div class="name">Nicolás</div><div class="role">Co-founder, CEO Lummia</div></div>
+      <div class="guest-photo-card"><div class="guest-photo"><img src="assets/IMG_1528.jpg" alt="Laura"></div><div class="name">Laura</div><div class="role">Co-founder, Somos The Gula</div></div>
+      <div class="guest-photo-card"><div class="guest-photo"><img src="assets/IMG_1530.jpg" alt="Lorena"></div><div class="name">Lorena</div><div class="role">Marketing regional</div></div>
+      <div class="guest-photo-card"><div class="guest-photo"><img src="assets/IMG_1532.jpg" alt="Julián"></div><div class="name">Julián</div><div class="role">Founder The Extra Bold Group, editor digital Bazaar COL</div></div>
+    </div>
+  </section>
+
+  <section id="curriculum">
+    <div class="eyebrow-wrap"><span class="pill pill-pale">Currículum semana a semana</span></div>
+    <h2>Un mes y medio<br>de <em>laboratorio</em></h2>
+    <p class="lead">Un mes y medio intensivo, con 4 clases en vivo + todas las charlas con invitados especiales.</p>
+    <div class="week-list">
+      <div class="card week-card">
+        <div class="week-tag">Semana 1</div>
+        <h3>Deja de tenerte miedo</h3>
+        <p>Cómo construir (o reconstruir) una comunidad auténtica, sin que te cueste la salud mental.</p>
+      </div>
+      <div class="card week-card">
+        <div class="week-tag">Semana 2</div>
+        <h3>¿Todos tienen algo que vender menos yo?</h3>
+      </div>
+      <div class="card week-card">
+        <div class="week-tag">Semana 3</div>
+        <h3>Herramientas para crear</h3>
+        <p>Contenido y productos, digitales y no digitales.</p>
+      </div>
+      <div class="card week-card">
+        <div class="week-tag">Semana 4</div>
+        <h3>Semana de creatividad</h3>
+      </div>
+    </div>
+  </section>
+
+  <section id="como-funciona">
+    <div class="eyebrow-wrap"><span class="pill pill-pale">¿Cómo funciona el programa?</span></div>
+    <h2>Así vamos<br>a trabajar</h2>
+    <div class="note-grid">
+      <div class="card note rot-l"><span class="emo">⚡</span>Contenido pregrabado que puedes ver a tu ritmo, dentro de la plataforma de Hotmart — ahí vas a tener todo.</div>
+      <div class="card note rot-r"><span class="emo">⚡</span>Ejercicios prácticos dentro de la misma plataforma, para que pases de la teoría a la acción real.</div>
+      <div class="card note rot-r"><span class="emo">⚡</span>4 clases en vivo + charlas bonus con los invitados especiales — todo queda grabado, así que si no llegas en el momento, no te pierdes nada.</div>
+      <div class="card note rot-l"><span class="emo">⚡</span>Acceso a todo el contenido durante 9 meses desde que empieza el laboratorio.</div>
     </div>
   </section>
 
@@ -735,7 +885,7 @@ footer a { text-decoration: underline; }
       <div class="card incluye-card"><span class="emo">✨</span><h3>Brilla en redes</h3><p>Encuentra tu forma de destacar sin fórmula ajena.</p></div>
       <div class="card incluye-card"><span class="emo">📲</span><h3>Vida monetizable</h3><p>Construye una presencia de la que en realidad puedas vivir.</p></div>
       <div class="card incluye-card"><span class="emo">🤖</span><h3>IA a tu favor</h3><p>Úsala como herramienta, no como reemplazo de tu voz.</p></div>
-      <div class="card incluye-card"><span class="emo">🎤</span><h3>Invitados especiales</h3><p>[Cuéntame quiénes son y los sumo aquí con nombre.]</p></div>
+      <div class="card incluye-card"><span class="emo">🎤</span><h3>Invitados especiales</h3><p>Directora de marketing, cofundadores y creativos se suman con clases bonus.</p></div>
       <div class="card incluye-card"><span class="emo">📈</span><h3>Crece sin tendencias</h3><p>Aprende a crecer sin perseguir cada trend.</p></div>
       <div class="card incluye-card"><span class="emo">🫂</span><h3>Comunidad real</h3><p>No audiencia pasajera, comunidad que se queda.</p></div>
       <div class="card incluye-card"><span class="emo">🗣️</span><h3>Identidades con postura</h3><p>La tibieza no es necesaria para existir en redes, sobretodo si eres mujer.</p></div>
@@ -747,10 +897,10 @@ footer a { text-decoration: underline; }
     <div class="eyebrow-wrap"><span class="pill pill-olive">Inscríbete</span></div>
     <h2>Tu cupo en<br>el <em>laboratorio</em></h2>
     <div class="card precio-box">
-      <span class="tape tape-pink">Cupos limitados</span>
-      <div class="precio">$ [PRECIO]</div>
-      <div class="precio-nota">[fecha de inicio — reemplaza este texto]</div>
-      <a class="btn btn-olive" href="https://wa.me/00000000000?text=Hola%2C%20quiero%20mi%20cupo%20en%20El%20Laboratorio" target="_blank" rel="noopener">Quiero mi cupo →</a>
+      <span class="tape tape-pink">Lista de espera</span>
+      <div class="precio" style="font-size:clamp(24px, 4.4vw, 34px);">Haz parte de la lista de espera</div>
+      <div class="precio-nota">"Zorritas prematuras" — para recibir un regalo</div>
+      <a class="btn btn-olive" href="https://forms.gle/NSpFpw6ANR3a6bYB7" target="_blank" rel="noopener">Quiero mi regalo →</a>
     </div>
   </section>
 
@@ -759,21 +909,32 @@ footer a { text-decoration: underline; }
     <h2>FAQ</h2>
     <div class="faq-list" style="margin-top:36px;">
       <div class="card faq-item">
-        <h3>¿Necesito experiencia previa?</h3>
-        <p>No. El laboratorio está diseñado para empezar desde cero o para retomar con más claridad y estrategia.</p>
-      </div>
-      <div class="card faq-item">
-        <h3>¿Cuánto dura el curso?</h3>
-        <p>[Completa la duración real: semanas de clases + acceso de por vida / tiempo limitado, etc.]</p>
+        <h3>¿Cuánto cuesta el Laboratorio?</h3>
+        <p>Haz parte de la lista de espera "zorritas prematuras" y sé de las primeras en saberlo — con regalo incluido.</p>
       </div>
       <div class="card faq-item">
         <h3>¿Cuándo empieza?</h3>
-        <p>[Completa la fecha de inicio o si es a demanda / self-paced.]</p>
+        <p>Noviembre.</p>
       </div>
       <div class="card faq-item">
-        <h3>¿Cómo pago?</h3>
-        <p>[Completa el método de pago: link de pago, transferencia, cuotas, etc.]</p>
+        <h3>¿Por cuánto tiempo tengo acceso al contenido?</h3>
+        <p>9 meses desde que inicia el programa, para que lo veas a tu ritmo.</p>
       </div>
+      <div class="card faq-item">
+        <h3>¿Las clases en vivo quedan grabadas si no puedo verlas en el momento?</h3>
+        <p>Sí, todo queda pregrabado. Nunca te pierdes nada.</p>
+      </div>
+      <div class="card faq-item">
+        <h3>¿En qué plataforma está el curso?</h3>
+        <p>En Hotmart. Ahí vas a tener el contenido pregrabado, los ejercicios y el acceso a las clases.</p>
+      </div>
+      <div class="card faq-item">
+        <h3>¿Es para principiantes o para quienes ya tienen negocio?</h3>
+        <p>Es para quienes quieren entrar en redes por primera vez, y para quienes ya tienen redes o negocio y quieren transformarlos.</p>
+      </div>
+    </div>
+    <div class="actions" style="margin-top:36px; display:flex; justify-content:center;">
+      <a class="btn btn-pink" href="#inscribirme">Quiero mi cupo →</a>
     </div>
   </section>
 
