@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Laboratorio · LARUBIAINMORAL</title>
+<meta name="description" content="El Laboratorio de LARUBIAINMORAL: laboratorio de creatividad, emprendimiento y redes sociales.">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Poppins:ital,wght@0,400;0,600;0,700;0,900;1,700&family=IBM+Plex+Mono:wght@500;600&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#201a17;
+  --cream:#FBF3E6;
+  --card:#FFFDF8;
+  --pink:#EC2B7A;
+  --pink-light:#FE7BBF;
+  --pink-pale:#FBDDEB;
+  --chartreuse:#CEFF32;
+  --silver:#9AA1AB;
+  --silver-light:#D8DBDF;
+}
+svg.defs { position: absolute; width: 0; height: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+  position: relative;
+}
+a { color: inherit; }
+.wrap { max-width: 740px; margin: 0 auto; padding: 0 24px; position: relative; }
+em { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; color: var(--pink); }
+.marker-inline {
+  background: var(--chartreuse);
+  padding: 1px 8px;
+  border-radius: 6px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* ─── STARS ─── */
+.star { position: absolute; color: var(--pink); pointer-events: none; z-index: 0; }
+.star.olive { color: var(--chartreuse); filter: drop-shadow(0 0 0 var(--ink)); -webkit-text-stroke: 1px var(--ink); }
+
+/* ─── PILLS & TAPE ─── */
+.pill {
+  display: inline-block;
+  font-family: 'Special Elite', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 9px 22px;
+  border-radius: 999px;
+}
+.pill-pink { background: var(--pink); color: var(--cream); }
+.pill-pale { background: var(--pink-pale); color: var(--pink); }
+.pill-olive { background: var(--chartreuse); color: var(--ink); }
+
+.tape {
+  display: inline-block;
+  font-family: 'Special Elite', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 7px 18px;
+  color: var(--ink);
+  box-shadow: 0 3px 6px rgba(32,26,23,0.15);
+  position: relative;
+}
+.tape::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, rgba(255,255,255,0.35) 0 4px, transparent 4px 9px);
+  pointer-events: none;
+}
+.tape-olive { background: var(--chartreuse); }
+.tape-pink { background: var(--pink-light); }
+
+/* ─── CARDS ─── */
+.card {
+  background: var(--card);
+  border-radius: 26px;
+  border: 1.5px solid rgba(154,161,171,0.35);
+  box-shadow: 0 18px 36px rgba(32,26,23,0.07), 0 2px 10px rgba(236,43,122,0.10);
+  padding: 30px 26px;
+  position: relative;
+}
+.card.rot-l { transform: rotate(-1.1deg); }
+.card.rot-r { transform: rotate(1.1deg); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 17px 38px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:hover { transform: translateY(-3px); }
+.btn-pink { background: var(--pink); color: var(--cream); box-shadow: 0 14px 28px rgba(236,43,122,0.38); }
+.btn-olive { background: var(--chartreuse); color: var(--ink); box-shadow: 0 14px 28px rgba(206,255,50,0.45); }
+
+/* ─── TOPBAR ─── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  position: relative;
+  z-index: 2;
+}
+.topbar a.back {
+  font-family: 'Special Elite', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  opacity: 0.55;
+}
+.topbar a.back:hover { opacity: 1; }
+
+/* ─── COVER (página 1: la carta a pantalla completa) ─── */
+.cover {
+  min-height: 100vh;
+  min-height: 100svh;
+  background-color: var(--chartreuse);
+  background-image:
+    radial-gradient(circle at 50% 34%, rgba(255,255,255,0.28), transparent 62%),
+    radial-gradient(rgba(32,26,23,0.08) 1px, transparent 1.5px);
+  background-size: 100% 100%, 16px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 70px 24px 50px;
+  cursor: pointer;
+  overflow: hidden;
+}
+/* ─── PASSPORT ─── */
+.passport-wrap {
+  width: min(480px, 94vw);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.passport-page {
+  background: var(--cream);
+  border: 4px solid var(--ink);
+  position: relative;
+  padding: 22px;
+}
+.passport-page.top { border-radius: 26px 26px 0 0; border-bottom: none; }
+.passport-page.bottom { border-radius: 0 0 26px 26px; border-top: 4px solid var(--ink); }
+
+/* muescas tipo boleto en el pliegue */
+.notch {
+  position: absolute;
+  top: -12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--chartreuse);
+  z-index: 4;
+}
+.notch.left { left: -12px; }
+.notch.right { right: -12px; }
+
+.star-border { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.star-border .star-dot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  color: var(--silver);
+  font-size: 11px;
+  line-height: 1;
+}
+.passport-word {
+  font-family: 'Special Elite', monospace;
+  color: var(--ink);
+}
+
+/* top page: título vertical + foto grande */
+.passport-page.top { display: flex; align-items: stretch; gap: 12px; height: 250px; }
+.passport-word.vertical {
+  flex: 0 0 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.passport-word.vertical span {
+  display: block;
+  transform: rotate(-90deg);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.passport-photo {
+  flex: 1;
+  background: linear-gradient(160deg, var(--ink), var(--silver) 140%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.passport-photo .placeholder {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.8;
+  text-align: center;
+  padding: 0 16px;
+}
+.photo-layer {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  /* El filtro duotono fucsia uniforma cualquier foto sin necesitar un recorte exacto */
+  filter: grayscale(1) sepia(1) hue-rotate(280deg) saturate(2.2) contrast(1.1);
+}
+.photo-star { position: absolute; color: var(--silver); font-size: 28px; z-index: 3; }
+.photo-star.tr { top: -12px; right: -10px; transform: rotate(12deg); }
+.photo-star.bl { bottom: -12px; left: 14px; transform: rotate(-10deg); }
+
+/* bottom page: miniatura + tabla de datos */
+.passport-page.bottom { display: flex; gap: 18px; align-items: flex-start; padding-top: 30px; }
+.pp-thumb-col { flex: 0 0 34%; }
+.pp-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1.05;
+  background: linear-gradient(160deg, var(--ink), var(--silver) 140%);
+  position: relative;
+  overflow: hidden;
+}
+.pp-thumb .placeholder {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--cream); opacity: 0.8;
+  text-align: center; padding: 0 10px;
+}
+.pp-thumb-col .passport-tagline {
+  display: block;
+  font-family: 'Special Elite', monospace;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--ink);
+  margin-top: 10px;
+}
+.passport-caption {
+  margin-top: 5px;
+  font-family: 'Special Elite', monospace;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.45;
+  line-height: 1.4;
+}
+
+.doc-col { flex: 1; min-width: 0; }
+.doc-table { border: 2px solid var(--ink); }
+.doc-row { display: flex; border-bottom: 1.5px solid var(--ink); }
+.doc-row:last-child { border-bottom: none; }
+.doc-cell { padding: 8px 10px; min-width: 0; }
+.doc-row.two .doc-cell:first-child { flex: 1.6; border-right: 1.5px solid var(--ink); }
+.doc-row.two .doc-cell:last-child { flex: 1; }
+.doc-row.full .doc-cell { flex: 1; }
+.dc-label {
+  font-family: 'Special Elite', monospace;
+  font-size: 9.5px;
+  color: var(--ink);
+  opacity: 0.55;
+}
+.dc-value {
+  font-family: 'Special Elite', monospace;
+  font-size: 13.5px;
+  color: var(--ink);
+  margin-top: 2px;
+  line-height: 1.35;
+  word-break: break-word;
+}
+.dc-value.signature { font-family: 'Special Elite', monospace; font-size: 18px; letter-spacing: 0.02em; }
+.doc-expires {
+  text-align: right;
+  margin-top: 8px;
+  font-family: 'Special Elite', monospace;
+  font-size: 9.5px;
+  color: var(--ink);
+  opacity: 0.45;
+}
+
+.cover-hint {
+  margin-top: 30px;
+  font-family: 'Special Elite', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.55;
+  text-align: center;
+}
+
+/* ─── CRED BAR ─── */
+.cred-bar {
+  margin-top: 52px;
+  background: var(--chartreuse);
+  padding: 16px 24px;
+  overflow: hidden;
+}
+.cred-bar .track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: 'Special Elite', monospace;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* ─── SECTIONS ─── */
+section { padding: 68px 0; position: relative; z-index: 2; }
+.eyebrow-wrap { text-align: center; margin-bottom: 20px; }
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(27px, 5vw, 40px);
+  text-align: center;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+.lead {
+  font-size: clamp(16px, 2vw, 19px);
+  line-height: 1.7;
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto;
+  opacity: 0.8;
+}
+
+/* stats */
+.stats-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.stat {
+  padding: 20px 14px;
+  text-align: center;
+  border: 2px dashed var(--ink) !important;
+  box-shadow: none;
+}
+.stat .num {
+  font-family: 'Special Elite', monospace;
+  font-size: clamp(19px, 3.8vw, 25px);
+  color: var(--pink);
+  line-height: 1.15;
+}
+.stat .label {
+  font-family: 'Special Elite', monospace;
+  font-size: 11.5px;
+  line-height: 1.45;
+  margin-top: 6px;
+  opacity: 0.75;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+@media (max-width: 480px) { .stats-grid { grid-template-columns: 1fr 1fr; } }
+.stats-para {
+  margin-top: 34px;
+  font-size: 16.5px;
+  line-height: 1.7;
+  opacity: 0.8;
+  text-align: center;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* emoji notes */
+.note-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.note {
+  padding: 22px 18px;
+  font-size: 15.5px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+.note .emo { font-size: 25px; display: block; margin-bottom: 10px; }
+@media (max-width: 560px) { .note-grid { grid-template-columns: 1fr; } }
+
+/* incluye */
+.incluye-grid {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.incluye-card { padding: 22px 18px; }
+.incluye-card .emo { font-size: 25px; margin-bottom: 10px; display: block; }
+.incluye-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+.incluye-card p { font-size: 14.5px; opacity: 0.72; line-height: 1.5; }
+@media (max-width: 560px) { .incluye-grid { grid-template-columns: 1fr; } }
+
+/* placeholder boxes */
+.todo-box {
+  margin-top: 40px;
+  padding: 38px 26px 30px;
+  text-align: center;
+  position: relative;
+}
+.todo-box p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.55;
+  opacity: 0.8;
+}
+.todo-box .tape { position: absolute; top: -16px; left: 50%; transform: translateX(-50%) rotate(-3deg); }
+
+/* precio */
+.precio-box { margin-top: 40px; text-align: center; padding: 46px 30px 38px; }
+.precio-box .tape { position: absolute; top: -16px; left: 50%; transform: translateX(-50%) rotate(2deg); }
+.precio-box .precio {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(38px, 8vw, 56px);
+  color: var(--pink);
+  margin-bottom: 6px;
+}
+.precio-box .precio-nota { font-size: 14px; opacity: 0.65; margin-bottom: 26px; font-weight: 600; }
+
+/* faq */
+.faq-item { padding: 24px 24px; margin-bottom: 16px; }
+.faq-item h3 {
+  font-family: 'Special Elite', monospace;
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 8px;
+}
+.faq-item p { font-size: 16px; line-height: 1.6; opacity: 0.8; }
+
+/* cta final */
+.cta-final { text-align: center; }
+.cta-final .actions { margin-top: 28px; display: flex; justify-content: center; }
+
+footer {
+  padding: 40px 24px 60px;
+  text-align: center;
+  font-family: 'Special Elite', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  position: relative;
+  z-index: 2;
+}
+footer a { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<svg id="rrPathSvg" viewBox="0 0 1 1" style="position:absolute;width:0;height:0;overflow:hidden">
+  <path id="rrPathTop" d="M0.06,0 L0.94,0 A0.06,0.06 0 0 1 1,0.06 L1,1 L0,1 L0,0.06 A0.06,0.06 0 0 1 0.06,0 Z" />
+  <path id="rrPathBottom" d="M0,0 L1,0 L1,0.94 A0.06,0.06 0 0 1 0.94,1 L0.06,1 A0.06,0.06 0 0 1 0,0.94 Z" />
+</svg>
+
+<div class="cover" id="cover">
+
+  <div class="passport-wrap">
+    <div class="passport-page top">
+      <div class="star-border" id="star-border-top"></div>
+      <div class="passport-word vertical"><span>Pasaporte de la creatividad</span></div>
+      <div class="passport-photo">
+        <div class="photo-layer" style="background-image:url('assets/IMG_1452.jpg'); background-size:175% auto; background-position:50% 12%;"></div>
+        <span class="photo-star tr">★</span>
+        <span class="photo-star bl">★</span>
+      </div>
+    </div>
+    <div class="passport-page bottom">
+      <div class="star-border" id="star-border-bottom"></div>
+      <span class="notch left"></span><span class="notch right"></span>
+
+      <div class="pp-thumb-col">
+        <div class="pp-thumb">
+          <div class="photo-layer" style="background-image:url('assets/IMG_1452.jpg'); background-size:170% auto; background-position:50% 8%;"></div>
+          <span class="photo-star" style="bottom:-8px; right:-6px; font-size:16px; transform:rotate(10deg);">★</span>
+        </div>
+        <div class="passport-tagline">Pasaporte de la creatividad</div>
+        <div class="passport-caption">creadora de contenido, emprendedora,<br>empresaria y speaker por 7 años</div>
+      </div>
+
+      <div class="doc-col">
+        <div class="doc-table">
+          <div class="doc-row two">
+            <div class="doc-cell"><div class="dc-label">name:</div><div class="dc-value">LARUBIAINMORAL</div></div>
+            <div class="doc-cell"><div class="dc-label">gender:</div><div class="dc-value">F</div></div>
+          </div>
+          <div class="doc-row two">
+            <div class="doc-cell"><div class="dc-label">profession:</div><div class="dc-value">CREADORA DE CONTENIDO</div></div>
+            <div class="doc-cell"><div class="dc-label">status:</div><div class="dc-value">FUNDADORA</div></div>
+          </div>
+          <div class="doc-row full">
+            <div class="doc-cell"><div class="dc-label">mission:</div><div class="dc-value">LABORATORIO DE CREATIVIDAD, EMPRENDIMIENTO Y REDES SOCIALES</div></div>
+          </div>
+          <div class="doc-row full">
+            <div class="doc-cell"><div class="dc-label">signature:</div><div class="dc-value signature">LARUBIAINMORAL</div></div>
+          </div>
+        </div>
+        <div class="doc-expires">expira: nunca</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-hint">toca para entrar ✦</div>
+</div>
+
+<div id="site-content" style="display:none;">
+
+<div class="topbar">
+  <a class="back" href="sexys-mananas.html">‹ Las Sexys Mañanas</a>
+  <span class="pill pill-pale">El Laboratorio</span>
+</div>
+
+<div class="cred-bar">
+  <div class="track">
+    <span>342K EN INSTAGRAM</span><span>✦</span>
+    <span>262K EN TIKTOK</span><span>✦</span>
+    <span>7.4K EN YOUTUBE</span><span>✦</span>
+    <span>+15K CLIENTAS</span><span>✦</span>
+    <span>+1K ALUMNAS</span><span>✦</span>
+    <span>SOLD OUT 1.000 PERSONAS</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section id="autoridad">
+    <div class="eyebrow-wrap"><span class="pill pill-pale">Prueba social</span></div>
+    <h2>Esto no se construyó<br>con <em>fórmulas</em></h2>
+    <div class="stats-grid">
+      <div class="card stat rot-l"><div class="num">+342.000</div><div class="label">seguidoras en Instagram</div></div>
+      <div class="card stat rot-r"><div class="num">+262.000</div><div class="label">seguidoras en TikTok</div></div>
+      <div class="card stat rot-r"><div class="num">+7.400</div><div class="label">seguidoras en YouTube (empecé este año)</div></div>
+      <div class="card stat rot-l"><div class="num">3</div><div class="label">ediciones vendidas de mi primer libro</div></div>
+      <div class="card stat rot-l"><div class="num">+15.000</div><div class="label">clientas en larubiainmoral.com</div></div>
+      <div class="card stat rot-r"><div class="num">+1.000</div><div class="label">chicas que ya pasaron por mis cursos</div></div>
+      <div class="card stat rot-r"><div class="num">40 min</div><div class="label">agotamos una colaboración con MH Hernández</div></div>
+      <div class="card stat rot-l"><div class="num">1.000</div><div class="label">personas en un monólogo con sold out</div></div>
+    </div>
+    <p class="stats-para">Todo esto construido sin fórmulas, sin viralización barata, sin copiar a nadie, sin perder tus posturas, sin una imagen rígida, sin que tengas que parecer hermosa o aspiracional todo el tiempo. Y he trabajado con las marcas más reconocidas de este país.</p>
+  </section>
+
+  <section id="para-quien">
+    <div class="eyebrow-wrap"><span class="pill pill-pale">Este programa es para ti si...</span></div>
+    <h2>¿Te suena<br>alguna de estas?</h2>
+    <p class="lead" style="margin-bottom:36px;">"La idea no es que te inviten al evento de la cartera de lujo, es que te puedas <span class="marker-inline">comprar la cartera de lujo</span>."</p>
+    <div class="note-grid">
+      <div class="card note rot-l"><span class="emo">💸</span>Quieres monetizar redes.</div>
+      <div class="card note rot-r"><span class="emo">🪞</span>Sientes que eres la copia de la copia de la copia, y ya no sabes cuál era tu voz antes de empezar a imitar la de otras.</div>
+      <div class="card note rot-r"><span class="emo">👛</span>Tu aspiración no es que te lleven a la cena de Chanel — es poder comprarte tú misma la cartera.</div>
+      <div class="card note rot-l"><span class="emo">🧠</span>Te da miedo mostrarte, no gustarle a la gente, hacer el ridículo o embarrarla — y eso te está costando tu contenido.</div>
+      <div class="card note rot-l"><span class="emo">📉</span>Sientes que tu salud mental se va por un tobogán cada vez que publicas.</div>
+      <div class="card note rot-r"><span class="emo">🚫</span>Estás cansada de fórmulas, tendencias y rutas cortas que no dicen nada de quién eres.</div>
+    </div>
+  </section>
+
+  <section id="ensenanza">
+    <div class="eyebrow-wrap"><span class="pill pill-pale">Te voy a enseñar exactamente cómo...</span></div>
+    <h2>Lo que vas<br>a <em>lograr</em></h2>
+    <div class="note-grid">
+      <div class="card note rot-r"><span class="emo">✨</span>Construir una identidad propia — no una versión tibia de alguien más.</div>
+      <div class="card note rot-l"><span class="emo">✨</span>Emprender con poco presupuesto, sin esperar a tener "todo resuelto" para empezar.</div>
+      <div class="card note rot-l"><span class="emo">✨</span>Entrenar tu mente para comerte el cuento (el tuyo, no el de nadie más).</div>
+      <div class="card note rot-r"><span class="emo">✨</span>Brillar en redes sin perder tu salud mental por el camino.</div>
+      <div class="card note rot-r"><span class="emo">✨</span>Construir una vida en redes de la que en realidad puedas vivir.</div>
+      <div class="card note rot-l"><span class="emo">✨</span>Usar la inteligencia artificial a tu favor, sin que te reemplace la voz.</div>
+      <div class="card note rot-l"><span class="emo">✨</span>Crecer sin caer en todas las tendencias.</div>
+      <div class="card note rot-r"><span class="emo">✨</span>Construir comunidades reales, no solo audiencias que miran y se van.</div>
+      <div class="card note rot-r"><span class="emo">✨</span>Tener posiciones — la tibieza no es necesaria para existir en redes, sobretodo si eres mujer.</div>
+      <div class="card note rot-l"><span class="emo">✨</span>Exponerte en redes sociales sin que el miedo a la imperfección, a no gustarle a la gente o a hacer el ridículo te paralice.</div>
+    </div>
+  </section>
+
+  <section id="perfiles">
+    <div class="eyebrow-wrap"><span class="pill pill-pale">Prueba social por categoría</span></div>
+    <h2>Perfiles que ya<br>pasaron por aquí</h2>
+    <div class="card todo-box">
+      <span class="tape tape-olive">Próximamente</span>
+      <p>Aquí va la lista de industrias y perfiles de tus alumnas anteriores (creadoras de contenido, emprendedoras de moda, coaches, terapeutas, artistas, marcas personales, negocios físicos...). Cuéntame cuáles han pasado por tus cursos o mentorías y armamos la lista.</p>
+    </div>
+  </section>
+
+  <section id="transformaciones">
+    <div class="eyebrow-wrap"><span class="pill pill-pale">Transformaciones</span></div>
+    <h2>Antes y<br>después</h2>
+    <div class="card todo-box">
+      <span class="tape tape-olive">Próximamente</span>
+      <p>Aquí va la galería visual de testimonios: capturas de resultados o mensajes reales de tus alumnas. ¿Tienes testimonios guardados que podamos usar aquí?</p>
+    </div>
+  </section>
+
+  <section id="incluye">
+    <div class="eyebrow-wrap"><span class="pill pill-pale">¿Qué incluye?</span></div>
+    <h2>Todo lo que<br>te <em>llevas</em></h2>
+    <div class="incluye-grid">
+      <div class="card incluye-card"><span class="emo">🧬</span><h3>Identidad</h3><p>Descubre quién eres antes de decidir qué vender.</p></div>
+      <div class="card incluye-card"><span class="emo">💰</span><h3>Emprende con poco</h3><p>Cómo montar negocio sin presupuesto de marca grande.</p></div>
+      <div class="card incluye-card"><span class="emo">🧠</span><h3>Entrenamiento mental</h3><p>Para comerte el cuento (el tuyo).</p></div>
+      <div class="card incluye-card"><span class="emo">✨</span><h3>Brilla en redes</h3><p>Encuentra tu forma de destacar sin fórmula ajena.</p></div>
+      <div class="card incluye-card"><span class="emo">📲</span><h3>Vida monetizable</h3><p>Construye una presencia de la que en realidad puedas vivir.</p></div>
+      <div class="card incluye-card"><span class="emo">🤖</span><h3>IA a tu favor</h3><p>Úsala como herramienta, no como reemplazo de tu voz.</p></div>
+      <div class="card incluye-card"><span class="emo">🎤</span><h3>Invitados especiales</h3><p>[Cuéntame quiénes son y los sumo aquí con nombre.]</p></div>
+      <div class="card incluye-card"><span class="emo">📈</span><h3>Crece sin tendencias</h3><p>Aprende a crecer sin perseguir cada trend.</p></div>
+      <div class="card incluye-card"><span class="emo">🫂</span><h3>Comunidad real</h3><p>No audiencia pasajera, comunidad que se queda.</p></div>
+      <div class="card incluye-card"><span class="emo">🗣️</span><h3>Identidades con postura</h3><p>La tibieza no es necesaria para existir en redes, sobretodo si eres mujer.</p></div>
+      <div class="card incluye-card"><span class="emo">🎭</span><h3>Exposición sin miedo</h3><p>Trabajemos el miedo a la imperfección, a no gustarle a la gente, a hacer el ridículo o a embarrarla.</p></div>
+    </div>
+  </section>
+
+  <section id="inscribirme">
+    <div class="eyebrow-wrap"><span class="pill pill-olive">Inscríbete</span></div>
+    <h2>Tu cupo en<br>el <em>laboratorio</em></h2>
+    <div class="card precio-box">
+      <span class="tape tape-pink">Cupos limitados</span>
+      <div class="precio">$ [PRECIO]</div>
+      <div class="precio-nota">[fecha de inicio — reemplaza este texto]</div>
+      <a class="btn btn-olive" href="https://wa.me/00000000000?text=Hola%2C%20quiero%20mi%20cupo%20en%20El%20Laboratorio" target="_blank" rel="noopener">Quiero mi cupo →</a>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="eyebrow-wrap"><span class="pill pill-pale">Preguntas frecuentes</span></div>
+    <h2>FAQ</h2>
+    <div class="faq-list" style="margin-top:36px;">
+      <div class="card faq-item">
+        <h3>¿Necesito experiencia previa?</h3>
+        <p>No. El laboratorio está diseñado para empezar desde cero o para retomar con más claridad y estrategia.</p>
+      </div>
+      <div class="card faq-item">
+        <h3>¿Cuánto dura el curso?</h3>
+        <p>[Completa la duración real: semanas de clases + acceso de por vida / tiempo limitado, etc.]</p>
+      </div>
+      <div class="card faq-item">
+        <h3>¿Cuándo empieza?</h3>
+        <p>[Completa la fecha de inicio o si es a demanda / self-paced.]</p>
+      </div>
+      <div class="card faq-item">
+        <h3>¿Cómo pago?</h3>
+        <p>[Completa el método de pago: link de pago, transferencia, cuotas, etc.]</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-final">
+    <div class="eyebrow-wrap"><span class="pill pill-pale">Última llamada</span></div>
+    <h2>Nos vemos<br>en el laboratorio</h2>
+    <p class="lead">La idea no es que te inviten. La idea es que te la puedas comprar tú misma.</p>
+    <div class="actions">
+      <a class="btn btn-pink" href="#inscribirme">Quiero mi cupo →</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  LARUBIAINMORAL · <a href="sexys-mananas.html">Las Sexys Mañanas</a>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  function fillStars(pathId, containerId, N) {
+    var path = document.getElementById(pathId);
+    var len = path.getTotalLength();
+    var container = document.getElementById(containerId);
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < N; i++) {
+      var pt = path.getPointAtLength((i / N) * len);
+      var star = document.createElement('span');
+      star.className = 'star-dot';
+      star.textContent = '★';
+      star.style.left = (pt.x * 100) + '%';
+      star.style.top = (pt.y * 100) + '%';
+      frag.appendChild(star);
+    }
+    container.appendChild(frag);
+  }
+  fillStars('rrPathTop', 'star-border-top', 36);
+  fillStars('rrPathBottom', 'star-border-bottom', 40);
+
+  document.getElementById('cover').addEventListener('click', function () {
+    var content = document.getElementById('site-content');
+    if (content.style.display === 'none') {
+      content.style.display = 'block';
+      requestAnimationFrame(function () {
+        content.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
