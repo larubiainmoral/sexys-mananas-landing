@@ -578,6 +578,26 @@ h2 {
   margin-bottom: 6px;
 }
 .precio-box .precio-nota { font-size: 14px; opacity: 0.65; margin-bottom: 26px; font-weight: 600; }
+.discount-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--pink), var(--pink-light));
+  color: var(--cream);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: clamp(11px, 2.6vw, 13px);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 12px 22px;
+  border-radius: 999px;
+  box-shadow: 0 10px 26px rgba(236,43,122,0.45);
+  margin-bottom: 24px;
+  animation: badge-pulse 1.8s ease-in-out infinite;
+}
+@keyframes badge-pulse {
+  0%, 100% { transform: rotate(-2deg) scale(1); }
+  50% { transform: rotate(-2deg) scale(1.06); }
+}
 
 /* faq */
 .faq-item { padding: 24px 24px; margin-bottom: 16px; }
@@ -1019,6 +1039,7 @@ footer a { text-decoration: underline; }
 
   <section id="inscribirme">
     <div class="card precio-box">
+      <a class="discount-badge" href="https://hotmart.com/es/marketplace/productos/laboratorio-de-la-rubia-inmoral/O107540471D" target="_blank" rel="noopener">🚀 Reclama tu descuento hasta el 30 de septiembre</a>
       <div class="precio">Inscríbete ahora</div>
       <div class="precio-nota">Asegura tu cupo en el Laboratorio</div>
       <a class="btn btn-olive" href="https://hotmart.com/es/marketplace/productos/laboratorio-de-la-rubia-inmoral/O107540471D" target="_blank" rel="noopener">Quiero mi cupo →</a>
