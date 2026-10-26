@@ -251,15 +251,19 @@ body { font-family: 'Cormorant Garamond', serif; background: #FFF3DF; color: #24
 .footer-sub { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #D8FC5E; letter-spacing: 0.18em; text-transform: uppercase; }
 
 /* ─── RESPONSIVE ─── */
-@media (max-width: 680px) {
+@media (max-width: 768px) {
   .origen-inner { grid-template-columns: 1fr; }
-  .origen-photo { height: 380px; }
+  .origen-photo { height: 320px; }
   .origen-photo::before { display: none; }
   .origen-text { padding-right: 0; margin-bottom: 0; }
+  .origen { padding: 60px 24px; }
   .quien { grid-template-columns: 1fr; }
-  .quien-photo { height: 380px; }
+  .quien-photo { height: 320px; }
   .quien-photo::after { background: linear-gradient(to bottom, transparent 60%, #246D48 100%); }
   .quien-text { padding: 32px 24px 48px; }
+  .includes-wrap { padding: 60px 24px; }
+  .pricing { padding: 60px 24px; }
+  .bonus { padding: 60px 24px; }
 }
 </style>
 </head>
