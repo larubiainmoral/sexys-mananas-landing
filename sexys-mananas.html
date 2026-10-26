@@ -714,41 +714,6 @@ body { font-family: 'Cormorant Garamond', serif; background: #FFF3DF; color: #24
 </div>
 
 <!-- CIERRE -->
-<!-- SECCIÓN SALVAVIDAS -->
-<div id="sec-salvavidas" style="background:#246D48; padding:160px 32px; text-align:center;">
-  <div style="max-width:600px; margin:0 auto;">
-    <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#D8FC5E; margin-bottom:20px;">✦ una pausa ✦</div>
-    <div style="font-family:'Playfair Display',serif; font-style:italic; font-weight:900; font-size:clamp(28px,5vw,50px); color:#FFF3DF; line-height:1.05; margin-bottom:48px;">Deja una carta<br>salvavidas</div>
-    <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(17px,2vw,20px); font-style:italic; color:#FFF3DF; line-height:1.85; margin-bottom:56px; opacity:0.85;">Sé milagro, sé magia y sé el mensaje que alguien necesitaba para que la vida no sea tan pesada. Aquí vinimos a sostenernos entre todas.</p>
-    <div id="salvavidas-form">
-      <textarea id="salvavidas-input" placeholder="Escribe tu mensaje para esa desconocida..." style="
-        width:100%; min-height:220px; padding:28px;
-        font-family:'Cormorant Garamond',serif; font-size:18px; font-style:italic;
-        background:#246D48; border:1px solid #D8FC5E44;
-        color:#FFF3DF; resize:vertical; outline:none;
-        line-height:1.7;
-      " onfocus="this.style.borderColor='#D8FC5E'" onblur="this.style.borderColor='#D8FC5E44'"></textarea>
-      <button onclick="
-        var t = document.getElementById('salvavidas-input');
-        var f = document.getElementById('salvavidas-form');
-        var c = document.getElementById('salvavidas-confirmacion');
-        if(t.value.trim()===''){return;}
-        f.style.transition='opacity 0.6s'; f.style.opacity='0';
-        setTimeout(function(){ f.style.display='none'; c.style.display='block'; }, 600);
-      " style="
-        margin-top:20px;
-        font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.2em; text-transform:uppercase;
-        background:transparent; color:#D8FC5E;
-        border:1px solid #D8FC5E; padding:16px 40px; cursor:pointer;
-        transition:all 0.2s;
-      " onmouseover="this.style.background='#D8FC5E';this.style.color='#246D48'" onmouseout="this.style.background='transparent';this.style.color='#D8FC5E'">Enviar mi carta ✦</button>
-    </div>
-    <div id="salvavidas-confirmacion" style="display:none; font-family:'Playfair Display',serif; font-style:italic; font-size:20px; color:#D8FC5E; line-height:1.7;">
-      Tu mensaje ya está viajando.<br>
-      <span style="font-size:16px; color:#FFF3DF; opacity:0.8;">Alguien lo va a necesitar exactamente hoy.</span>
-    </div>
-  </div>
-</div>
 
 <div class="closing">
   <div class="closing-title">Puedes confiar en mí<br>en este momento.</div>
