@@ -33,8 +33,9 @@ src="https://www.facebook.com/tr?id=256592663620614&ev=PageView&noscript=1"
 <title>Las Sexys Mañanas · larubiainmoral</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700;1,900&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Cormorant Garamond', serif; background: #FFF3DF; color: #246D48; overflow-x: hidden; }
+* { box-sizing: border-box; margin: 0; padding: 0; max-width: 100%; }
+html { overflow-x: hidden; }
+body { font-family: 'Cormorant Garamond', serif; background: #FFF3DF; color: #246D48; overflow-x: hidden; width: 100%; }
 
 /* ─── HERO ─── */
 .hero {
@@ -252,18 +253,19 @@ body { font-family: 'Cormorant Garamond', serif; background: #FFF3DF; color: #24
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 768px) {
-  .origen-inner { grid-template-columns: 1fr; }
-  .origen-photo { height: 320px; }
+  html, body { overflow-x: hidden; width: 100%; }
+  .origen-inner { grid-template-columns: 1fr !important; display: block !important; }
+  .origen-photo { height: 300px; width: 100%; }
   .origen-photo::before { display: none; }
-  .origen-text { padding-right: 0; margin-bottom: 0; }
-  .origen { padding: 60px 24px; }
-  .quien { grid-template-columns: 1fr; }
-  .quien-photo { height: 320px; }
+  .origen-text { padding-right: 0 !important; margin-bottom: 0; width: 100%; }
+  .origen { padding: 60px 24px; width: 100%; box-sizing: border-box; }
+  .quien { grid-template-columns: 1fr !important; display: block !important; width: 100%; }
+  .quien-photo { height: 300px; width: 100%; }
   .quien-photo::after { background: linear-gradient(to bottom, transparent 60%, #246D48 100%); }
-  .quien-text { padding: 32px 24px 48px; }
-  .includes-wrap { padding: 60px 24px; }
-  .pricing { padding: 60px 24px; }
-  .bonus { padding: 60px 24px; }
+  .quien-text { padding: 32px 24px 48px; width: 100%; box-sizing: border-box; }
+  .includes-wrap { padding: 60px 24px; width: 100%; box-sizing: border-box; }
+  .pricing { padding: 60px 24px; width: 100%; box-sizing: border-box; }
+  .bonus { padding: 60px 24px; width: 100%; box-sizing: border-box; }
 }
 </style>
 </head>
